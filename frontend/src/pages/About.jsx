@@ -4,7 +4,7 @@ export default function About() {
       {/* Heading Section */}
       <div className="text-center mb-12">
         <h1 className="text-4xl md:text-5xl font-extrabold text-slate-800 leading-tight">
-          About <span className="text-blue-600">MyReal Estate</span>
+          About <span className="text-blue-800">MyReal Estate</span>
         </h1>
         <p className="mt-4 text-slate-600 text-base md:text-lg max-w-3xl mx-auto">
           Trusted real estate partner helping clients buy, sell, and rent properties with ease and confidence.

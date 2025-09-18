@@ -65,7 +65,7 @@ export default function Home() {
         </p>
         <Link
           to="/search"
-          className="px-6 py-3 bg-blue-600 text-white text-sm sm:text-base font-semibold rounded-lg shadow-md hover:bg-blue-700 transition"
+          className="px-6 py-3 bg-blue-800 text-white text-sm sm:text-base font-semibold rounded-lg shadow-md hover:bg-blue-700 transition"
         >
           Let’s Get Started
         </Link>

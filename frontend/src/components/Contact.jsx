@@ -61,7 +61,7 @@ export default function Contact({ listing }) {
           message
         )}`}
         className={`flex items-center justify-center gap-2 mt-3 py-2.5 rounded-lg text-white transition-all duration-200 ${message.trim()
-          ? "bg-blue-600 hover:bg-blue-700 cursor-pointer"
+          ? "bg-blue-800 hover:bg-blue-700 cursor-pointer"
           : "bg-gray-400 cursor-not-allowed"
           }`}
         onClick={(e) => {

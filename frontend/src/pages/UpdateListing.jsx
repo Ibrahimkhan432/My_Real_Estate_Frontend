@@ -351,7 +351,7 @@ export default function CreateListing() {
                 <button
                     type="submit"
                     disabled={loading || uploading}
-                    className="bg-blue-600 text-white p-2 rounded hover:bg-blue-700"
+                    className="bg-blue-800 text-white p-2 rounded hover:bg-blue-700"
                 >
                     {
                         loading ? 'updating...' : 'update Listing'

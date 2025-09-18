@@ -16,7 +16,7 @@ export default function ListingItem({ listing }) {
             className="h-[220px] w-full object-cover hover:scale-105 transition-transform duration-300"
           />
           {/* Price Badge */}
-          <span className="absolute bottom-2 left-2 bg-blue-600 text-white text-xs px-3 py-1 rounded-full shadow">
+          <span className="absolute bottom-2 left-2 bg-blue-800 text-white text-xs px-3 py-1 rounded-full shadow">
             {listing.offer
               ? `$${listing.discountPrice.toLocaleString("en-US")}`
               : `$${listing.regularPrice.toLocaleString("en-US")}`}

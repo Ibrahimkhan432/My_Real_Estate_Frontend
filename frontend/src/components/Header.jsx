@@ -33,7 +33,7 @@ const Header = () => {
         {/* Logo */}
         <Link to="/" className="flex items-center gap-1">
           <h1 className="text-2xl font-extrabold tracking-wide">
-            <span className="text-blue-600">My</span>
+            <span className="text-blue-800">My</span>
             <span className="text-slate-700">Estate</span>
           </h1>
         </Link>
@@ -50,7 +50,7 @@ const Header = () => {
             onChange={(e) => setSearchTerm(e.target.value)}
             className="bg-transparent outline-none px-2 text-sm flex-1"
           />
-          <button className="bg-blue-600 p-2 rounded-full text-white hover:bg-blue-700 transition">
+          <button className="bg-blue-800 p-2 rounded-full text-white hover:bg-blue-700 transition">
             <FaSearch size={14} />
           </button>
         </form>
@@ -84,7 +84,7 @@ const Header = () => {
           ) : (
             <Link
               to="/sign-in"
-              className="px-4 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition"
+              className="px-4 py-2 bg-blue-800 text-white rounded-full hover:bg-blue-700 transition"
             >
               Sign In
             </Link>
@@ -137,7 +137,7 @@ const Header = () => {
               ) : (
                 <Link
                   to="/sign-up"
-                  className="block px-4 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 mx-4"
+                  className="block px-4 py-2 bg-blue-800 text-white rounded-full hover:bg-blue-700 mx-4"
                   onClick={() => setMenuOpen(false)}
                 >
                   Sign In

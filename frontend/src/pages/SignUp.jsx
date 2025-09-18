@@ -86,7 +86,7 @@ const SignUp = () => {
           type="submit"
           disabled={loading}
           className={`cursor-pointer w-full flex items-center justify-center gap-2 py-3 px-4 rounded-lg text-white font-semibold transition duration-200
-            ${loading ? "bg-blue-400 cursor-not-allowed" : "bg-blue-600 hover:bg-blue-700"}
+            ${loading ? "bg-blue-400 cursor-not-allowed" : "bg-blue-800 hover:bg-blue-700"}
           `}
         >
           {loading && (

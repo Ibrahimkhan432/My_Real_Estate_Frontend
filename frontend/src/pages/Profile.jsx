@@ -221,7 +221,7 @@ const Profile = () => {
 
                 {/* Upload Status Indicators */}
                 {filePerc > 0 && filePerc < 100 && (
-                  <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 bg-blue-600 text-white text-xs px-3 py-1 rounded-full shadow-lg">
+                  <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 bg-blue-800 text-white text-xs px-3 py-1 rounded-full shadow-lg">
                     Uploading {filePerc}%
                   </div>
                 )}
@@ -392,7 +392,7 @@ const Profile = () => {
                         to={`/update-listing/${listing._id}`}
                         className="flex-1"
                       >
-                        <button className="w-full px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors duration-200">
+                        <button className="w-full px-4 py-2 bg-blue-800 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors duration-200">
                           Edit
                         </button>
                       </Link>

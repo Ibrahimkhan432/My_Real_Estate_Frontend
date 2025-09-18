@@ -242,7 +242,7 @@ export default function CreateListing() {
               onClick={() => setFormData({ ...formData, type })}
               className={`px-4 py-2 rounded-lg font-semibold border ${
                 formData.type === type
-                  ? "bg-blue-600 text-white"
+                  ? "bg-blue-800 text-white"
                   : "bg-white text-slate-700 hover:bg-slate-100"
               } transition`}
             >
@@ -320,7 +320,7 @@ export default function CreateListing() {
         <button
           type="submit"
           disabled={loading || uploading}
-          className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold transition cursor-pointer disabled:opacity-80"
+          className="w-full bg-blue-800 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold transition cursor-pointer disabled:opacity-80"
         >
           {loading ? "Creating..." : "Create Listing"}
         </button>
