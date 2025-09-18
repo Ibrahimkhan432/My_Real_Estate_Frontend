@@ -83,7 +83,7 @@ const Header = () => {
             </Link>
           ) : (
             <Link
-              to="/sign-up"
+              to="/sign-in"
               className="px-4 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition"
             >
               Sign In
