@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import Oath from "../components/Oath";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -16,7 +17,7 @@ const SignUp = () => {
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch("/api/auth/signup", {
+      const res = await fetch("http://localhost:5000/api/auth/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
@@ -84,7 +85,7 @@ const SignUp = () => {
         <button
           type="submit"
           disabled={loading}
-          className={`w-full flex items-center justify-center gap-2 py-3 px-4 rounded-lg text-white font-semibold transition duration-200
+          className={`cursor-pointer w-full flex items-center justify-center gap-2 py-3 px-4 rounded-lg text-white font-semibold transition duration-200
             ${loading ? "bg-blue-400 cursor-not-allowed" : "bg-blue-600 hover:bg-blue-700"}
           `}
         >
@@ -105,17 +106,8 @@ const SignUp = () => {
         {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
 
         {/* Google Signup */}
-        <button
-          type="button"
-          className="w-full flex items-center justify-center border border-gray-300 rounded-lg px-4 py-2 bg-white text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
-        >
-          <img
-            src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
-            alt="Google logo"
-            className="w-5 h-5 mr-3"
-          />
-          Continue with Google
-        </button>
+          {/* OAuth */}
+        <Oath />
 
         {/* Sign In link */}
         <p className="text-sm text-center text-gray-600 mt-3">

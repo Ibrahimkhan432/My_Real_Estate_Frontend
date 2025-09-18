@@ -15,7 +15,7 @@ const Oath = () => {
 
       console.log("Google Sign-In Result:", result);
 
-      const res = await fetch("/api/auth/google", {
+      const res = await fetch("localhost:5000/api/auth/google", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

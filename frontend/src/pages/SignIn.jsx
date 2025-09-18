@@ -18,7 +18,7 @@ const SignIn = () => {
     e.preventDefault();
     dispatch(signInStart());
     try {
-      const res = await fetch("/api/auth/signin", {
+      const res = await fetch("http://localhost:5000/api/auth/signin", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
@@ -72,7 +72,7 @@ const SignIn = () => {
         <button
           type="submit"
           disabled={loading}
-          className={`w-full flex items-center justify-center gap-2 py-3 px-4 rounded-lg text-white font-semibold transition duration-200
+          className={`cursor-pointer w-full flex items-center justify-center gap-2 py-3 px-4 rounded-lg text-white font-semibold transition duration-200
             ${loading ? "bg-blue-400 cursor-not-allowed" : "bg-blue-600 hover:bg-blue-700"}
           `}
         >
@@ -90,7 +90,7 @@ const SignIn = () => {
         </button>
 
         {/* Error */}
-        {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
+        {error && <p className="text-red-500 text-sm mt-1">{error.message}</p>}
 
         {/* OAuth */}
         <Oath />
