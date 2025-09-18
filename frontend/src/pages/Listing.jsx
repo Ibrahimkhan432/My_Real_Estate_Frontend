@@ -33,7 +33,7 @@ const Listing = () => {
   useEffect(() => {
     const fetchListing = async () => {
       try {
-        const res = await fetch(`/api/listing/get/${params.listingId}`);
+        const res = await fetch(`http://localhost:5000/api/listing/get/${params.listingId}`);
         const data = await res.json();
         if (data.success === false) {
           console.log(data.message);
