@@ -12,6 +12,7 @@ import UpdateListing from "./pages/UpdateListing";
 import Listing from "./pages/Listing";
 import Search from "./pages/Search";
 import Footer from "./components/Footer";
+import { Bounce, ToastContainer } from "react-toastify";
 
 const App = () => {
   return (
@@ -34,6 +35,19 @@ const App = () => {
         </Route>
       </Routes>
       <Footer />
+      <ToastContainer
+        position="top-center"
+        autoClose={600}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover={false}
+        theme="light"
+        transition={Bounce}
+      />
     </BrowserRouter>
   );
 };

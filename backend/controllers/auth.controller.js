@@ -21,29 +21,30 @@ export const signIn = async (req, res, next) => {
   const { email, password } = req.body;
   try {
     const validUser = await User.findOne({ email });
-    if (!validUser) {
-      return next(errorHandler(404, "User not found"));
-    }
+    if (!validUser) return next(errorHandler(404, "User not found"));
+
     const isPasswordValid = bcryptjs.compareSync(password, validUser.password);
-    if (!isPasswordValid) {
-      return next(errorHandler(401, "Wrong Credentials"));
-    }
+    if (!isPasswordValid) return next(errorHandler(401, "Wrong Credentials"));
+
     const token = jwt.sign({ id: validUser._id }, process.env.JWT_SECRET, {
       expiresIn: "7d",
     });
-    // Remove password from the user object before sending response
+
     const { password: pass, ...rest } = validUser._doc;
+
     res
       .cookie("access_token", token, {
         httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "strict",
       })
       .status(200)
       .json(rest);
   } catch (error) {
     res.status(500).json({ error: "Login failed", message: error.message });
   }
-  next();
 };
+
 
 export const googleSignIn = async (req, res, next) => {
   try {

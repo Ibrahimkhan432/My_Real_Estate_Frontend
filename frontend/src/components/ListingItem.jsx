@@ -18,8 +18,8 @@ export default function ListingItem({ listing }) {
           {/* Price Badge */}
           <span className="absolute bottom-2 left-2 bg-blue-800 text-white text-xs px-3 py-1 rounded-full shadow">
             {listing.offer
-              ? `$${listing.discountPrice.toLocaleString("en-US")}`
-              : `$${listing.regularPrice.toLocaleString("en-US")}`}
+              ? `Rs:${listing.discountPrice.toLocaleString("en-US")} offer`
+              : `Rs:${listing.regularPrice.toLocaleString("en-US")}`}
             {listing.type === "rent" && " /month"}
           </span>
         </div>

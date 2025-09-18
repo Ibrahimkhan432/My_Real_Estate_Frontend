@@ -134,6 +134,7 @@ const Profile = () => {
         return;
       }
       dispatch(signOutUserSuccess(data));
+      navigate("/sign-in");
     } catch (error) {
       dispatch(signInFailure(error.message));
     }
@@ -143,9 +144,17 @@ const Profile = () => {
   const handleShowListing = async () => {
     try {
       setShowListingError(false);
-      const res = await fetch(`http://localhost:5000/api/user/listings/${currentUser._id}`);
-      console.log("user listing res (126): ", res);
+      const res = await fetch(`http://localhost:5000/api/user/listings/${currentUser._id}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+        }
+      );
       const data = await res.json();
+      console.log("data",res.json());
       if (data.success === false) {
         setShowListingError(true);
         return;
@@ -326,12 +335,8 @@ const Profile = () => {
           </h3>
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
             <div className="flex gap-4">
-              <button
-                onClick={handleShowListing}
-                className="cursor-pointer px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700   text-white font-medium rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 transform hover:-translate-y-0.5"
-              >
-                View My Listings
-              </button>
+              <button onClick={handleShowListing} className="cursor-pointer px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-medium rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 transform hover:-translate-y-0.5" > Show Listings </button>
+
             </div>
 
             <div className="flex gap-4">
@@ -351,7 +356,6 @@ const Profile = () => {
           </div>
         </div>
 
-        {/* Enhanced Listings Section */}
         {userListings && userListings.length > 0 && (
           <div className="bg-white rounded-3xl shadow-xl border border-slate-200/50 p-8">
             <div className="text-center mb-8">

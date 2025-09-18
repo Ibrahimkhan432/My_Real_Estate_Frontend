@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { signInStart, signInFailure, signInSuccess } from "../redux/user/userSlice";
 import Oath from "../components/Oath";
+import { toast } from "react-toastify";
 
 const SignIn = () => {
   const navigate = useNavigate();
@@ -22,13 +23,21 @@ const SignIn = () => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
+        credentials: "include",
       });
       const data = await res.json();
-      if (!res.ok) return dispatch(signInFailure(data.message));
+      if (!res.ok) {
+        dispatch(signInFailure(data.message));
+        toast.error(data.message || "Invalid credentials");
+        return;
+      }
       dispatch(signInSuccess(data));
+      toast.success("Signed in successfully!");
       navigate("/");
     } catch (err) {
       dispatch(signInFailure(err.message));
+      toast.error("Something went wrong. Please try again.");
+      console.log(err);
     }
   };
 
