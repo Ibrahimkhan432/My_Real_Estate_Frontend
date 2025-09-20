@@ -45,20 +45,13 @@ export const deleteUser = async (req, res, next) => {
 };
 
 export const getUserListings = async (req, res, next) => {
-  // if (req.user.id === req.params.id) {
-    try {
-      const listings = await Listing.find({ userRef: req.params.id });
-      console.log("Found listings:", listings);
-
-      res.status(200).json(listings);
-    } catch (error) {
-      next(error);
-    }
-  } 
-  // else {
-  //   return next(errorHandler(403, "You can get only your listings!"));
-  // }
-// };
+  try {
+    const listings = await Listing.find({ userRef: req.params.id });
+    res.status(200).json(listings);
+  } catch (error) {
+    next(error);
+  }
+}
 
 export const getUser = async (req, res, next) => {
   try {

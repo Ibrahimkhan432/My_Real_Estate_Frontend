@@ -15,8 +15,7 @@ export default function Home() {
   useEffect(() => {
     const fetchOfferListings = async () => {
       try {
-           const res = await fetch("http://localhost:5000/api/listing/get?offer=true&limit=4");
-
+        const res = await fetch("http://localhost:5000/api/listing/get?offer=true&limit=4");
         const data = await res.json();
         setOfferListings(data);
         fetchRentListings();
@@ -50,11 +49,11 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="bg-gray-50 min-h-screen">
+    <div className="min-h-screen">
       {/* Hero Section */}
-      <div className="flex flex-col items-center justify-center text-center gap-6 px-3 py-20 lg:py-28 bg-gradient-to-r from-blue-50 to-slate-100">
+      <div className="flex flex-col items-center justify-center text-center gap-6 px-3 py-20 lg:py-30 ">
         <h1 className="text-slate-800 font-extrabold text-4xl lg:text-6xl leading-tight">
-          Find your <span className="text-blue-600">perfect</span>
+          Find your <span className="text-blue-800">perfect</span>
           <br /> place where you feel{" "}
           <span className="text-green-600 font-extrabold">comfortable</span>
         </h1>
@@ -72,26 +71,49 @@ export default function Home() {
       </div>
 
       {/* Swiper Section */}
-      <div className="max-w-6xl mx-auto px-3">
-        <Swiper navigation className="rounded-xl shadow-lg overflow-hidden">
-          {offerListings.map((listing) => (
-            <SwiperSlide key={listing._id}>
-              <div
-                className="h-[300px] sm:h-[400px] lg:h-[500px] relative"
-                style={{
-                  background: `url(${listing.imageUrls[0]}) center/cover no-repeat`,
-                }}
-              >
-                <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
-                  <h2 className="text-white text-xl sm:text-3xl font-bold">
-                    Special Offer
-                  </h2>
+      <div className="ng-gray-50 max-w-6xl mx-auto px-3 grid grid-cols-1 lg:grid-cols-2 gap-6 items-center">
+        {/* Left: Swiper Slider */}
+        <div>
+          <Swiper navigation className="rounded-xl shadow-lg overflow-hidden">
+            {offerListings.map((listing) => (
+              <SwiperSlide key={listing._id}>
+                <div
+                  className="h-[300px] sm:h-[400px] lg:h-[500px] relative"
+                  style={{
+                    background: `url(https://media.newhomeinc.com/348/2022/11/30/The-Apex-Georgian-Elevation-1.jpeg?width=1000&height=666&fit=bounds&ois=0360179) center/cover no-repeat`,
+                  }}
+                >
                 </div>
-              </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
+
+        {/* Right: Offer Description */}
+        <div className="flex flex-col justify-center space-y-4">
+          <h2 className="text-2xl sm:text-3xl font-bold text-gray-800">
+            Exclusive Special Offers ✨
+          </h2>
+          <p className="text-gray-600 leading-relaxed">
+            At <span className="font-semibold">My Real Estate</span>, we bring you
+            exclusive <span className="text-blue-600 font-semibold">special offers</span>
+            designed to make property ownership more rewarding.
+            From discounted prices to flexible payment plans, our offers
+            provide amazing <span className="font-medium">benefits for buyers and investors</span>.
+          </p>
+          <p className="text-gray-600 leading-relaxed">
+            Don’t miss out — explore our latest deals today and grab the opportunity
+            to own your dream property at the best value.
+          </p>
+          <Link to="/search?offer=true"
+            className="px-6 py-3 bg-blue-800 text-white text-sm sm:text-base font-semibold rounded-lg shadow-md hover:bg-blue-700 transition text-center w-max 
+             mx-auto lg:mx-0
+            ">
+            Explore Offers
+          </Link>
+        </div>
       </div>
+
 
       {/* Listings Section */}
       <div className="max-w-6xl mx-auto p-6 flex flex-col gap-12 my-12">

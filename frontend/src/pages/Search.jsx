@@ -203,8 +203,8 @@ export default function Search() {
                           type.id === "offer"
                             ? sidebarData.offer
                             : type.id === "all"
-                            ? sidebarData.type === "all"
-                            : sidebarData.type === type.id
+                              ? sidebarData.type === "all"
+                              : sidebarData.type === type.id
                         }
                         onChange={handleChange}
                       />
@@ -366,7 +366,7 @@ export default function Search() {
               <div className="flex justify-center mt-12">
                 <button
                   onClick={onShowMoreClick}
-                  className="bg-white/80 backdrop-blur-sm border border-slate-200 hover:border-blue-300 text-slate-700 hover:text-blue-700 font-semibold py-3 px-8 rounded-xl transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl"
+                  className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition-all duration-200 shadow-lg hover:shadow-xl"
                 >
                   Load More Properties
                 </button>

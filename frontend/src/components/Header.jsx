@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { FaSearch, FaBars, FaTimes } from "react-icons/fa";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { Link, useNavigate, useLocation, NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectUser } from "../redux/user/userSlice";
+import { isAction } from "@reduxjs/toolkit";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -28,20 +29,20 @@ const Header = () => {
   }, [location.search]);
 
   return (
-    <header className="bg-white shadow-md sticky top-0 z-50">
+    <header className="bg-white sticky top-0 z-50">
       <div className="flex justify-between items-center max-w-6xl mx-auto px-4 py-3">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-1">
           <h1 className="text-2xl font-extrabold tracking-wide">
-            <span className="text-blue-800">My</span>
+            <span className="text-blue-800">MyReal</span>
             <span className="text-slate-700">Estate</span>
           </h1>
         </Link>
 
-        {/* Search Bar (visible on all screens) */}
+        {/* Search Bar (hidden on mobile, visible from sm and above) */}
         <form
           onSubmit={handleSubmit}
-          className="flex items-center bg-slate-100 rounded-full px-3 py-1 shadow-inner flex-1 max-w-md mx-4 sm:mx-6"
+          className="hidden sm:flex items-center bg-slate-100 rounded-full px-3 py-1 shadow-inner flex-1 max-w-md mx-6"
         >
           <input
             type="text"
@@ -58,21 +59,32 @@ const Header = () => {
         {/* Desktop Navigation */}
         <ul className="hidden sm:flex items-center gap-6 text-sm font-medium">
           <li>
-            <Link
+            <NavLink
               to="/"
-              className="text-slate-600 hover:text-blue-600 transition"
+              end
+              className={({ isActive }) =>
+                isActive
+                  ? "text-blue-800 border-b-2 border-blue-600 pb-1"
+                  : "text-slate-800 hover:text-blue-600 transition"
+              }
             >
               Home
-            </Link>
+            </NavLink>
           </li>
+
           <li>
-            <Link
+            <NavLink
               to="/about"
-              className="text-slate-600 hover:text-blue-600 transition"
+              className={({ isActive }) =>
+                isActive
+                  ? "text-blue-800 border-b-2 border-blue-600 pb-1"
+                  : "text-slate-800 hover:text-blue-600 transition"
+              }
             >
               About
-            </Link>
+            </NavLink>
           </li>
+
           {currentUser ? (
             <Link to="/profile">
               <img
@@ -91,7 +103,7 @@ const Header = () => {
           )}
         </ul>
 
-        {/* Mobile Hamburger */}
+        {/* Mobile Hamburger (no absolute now) */}
         <div className="sm:hidden flex items-center">
           <button onClick={() => setMenuOpen(!menuOpen)}>
             {menuOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
@@ -101,7 +113,7 @@ const Header = () => {
 
       {/* Mobile Menu */}
       {menuOpen && (
-        <div className="sm:hidden bg-white shadow-md border-t border-gray-200">
+        <div className="sm:hidden bg-white shadow-md border-t border-gray-200 w-full">
           <ul className="flex flex-col gap-3 text-center mb-4">
             <li>
               <Link
@@ -148,6 +160,7 @@ const Header = () => {
         </div>
       )}
     </header>
+
   );
 };
 

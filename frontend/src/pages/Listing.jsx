@@ -33,6 +33,8 @@ const Listing = () => {
         const data = await res.json();
         if (data.success === false) {
           console.log(data.message);
+          setError(data.message || "Failed to fetch listing");
+          setLoading(false);
           return;
         }
         setError(false);

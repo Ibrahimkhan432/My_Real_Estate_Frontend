@@ -37,7 +37,7 @@ const App = () => {
       <Footer />
       <ToastContainer
         position="top-center"
-        autoClose={600}
+        autoClose={1000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick={false}

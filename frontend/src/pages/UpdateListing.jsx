@@ -9,6 +9,7 @@ export default function CreateListing() {
     const params = useParams();
     const navigate = useNavigate();
     const { currentUser } = useSelector((state) => state.user);
+    console.log(currentUser);
     const [files, setFiles] = useState([]);
     const [formData, setFormData] = useState({
         name: "",
@@ -34,7 +35,6 @@ export default function CreateListing() {
     useEffect(() => {
         const listingId = params.listingId;
         const fetchListing = async () => {
-            console.log(listingId)
             try {
                 const res = await fetch(`http://localhost:5000/api/listing/get/${listingId}`);
                 const data = await res.json();
@@ -134,9 +134,10 @@ export default function CreateListing() {
                 headers: {
                     "Content-Type": "application/json",
                 },
+                Credentials: "include",
                 body: JSON.stringify({
                     ...formData,
-                    useRef: currentUser._id
+                    userRef: currentUser._id,
                 }
 
                 ),
@@ -351,10 +352,10 @@ export default function CreateListing() {
                 <button
                     type="submit"
                     disabled={loading || uploading}
-                    className="bg-blue-800 text-white p-2 rounded hover:bg-blue-700"
+                    className="cursor-pointer bg-blue-800 text-white p-2 rounded hover:bg-blue-700"
                 >
                     {
-                        loading ? 'updating...' : 'update Listing'
+                        loading ? 'updating...' : 'Update Listing'
                     }
                 </button>
                 {error && <p className="text-red-500 mt-2">{error}</p>}

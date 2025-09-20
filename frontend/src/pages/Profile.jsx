@@ -34,6 +34,7 @@ const Profile = () => {
     password: "",
     img: currentUser?.img || "",
   });
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -70,7 +71,7 @@ const Profile = () => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
 
-  // handle user submit
+  // handle update user
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -80,6 +81,7 @@ const Profile = () => {
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: "include",
         body: JSON.stringify(formData),
       });
       const data = await res.json();
@@ -97,29 +99,27 @@ const Profile = () => {
   };
 
   // handle user delete
-  const handleDeleteAccount = async (e) => {
+  const handleDeleteAccount = async () => {
     try {
       dispatch(deleteUserStart());
-      const res = await fetch(`http://localhost:5000/api/user/delete/${currentUser._id}`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const res = await fetch(
+        `http://localhost:5000/api/user/delete/${currentUser._id}`,
+        {
+          method: "DELETE",
+          headers: { "Content-Type": "application/json" },
+        }
+      );
       const data = await res.json();
-      console.log(data);
       if (data.success === false) {
         dispatch(deleteUserFailure(data.message));
-        console.error("Delete failed:", data.message);
         return;
       }
       dispatch(deleteUserSuccess(data));
-      console.log("Delete successful:", data);
-      navigate("/sign-in", {
-        replace: true,
-      });
+      navigate("/sign-in", { replace: true });
     } catch (error) {
       dispatch(deleteUserFailure(error.message));
+    } finally {
+      setIsModalOpen(false);
     }
   };
 
@@ -154,7 +154,7 @@ const Profile = () => {
         }
       );
       const data = await res.json();
-      console.log("data",res.json());
+      console.log("data", res.json());
       if (data.success === false) {
         setShowListingError(true);
         return;
@@ -188,10 +188,10 @@ const Profile = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 py-12 px-4">
-      <div className="max-w-5xl mx-auto">
+      <div className="max-w-4xl mx-auto">
         {/* Main Profile Card */}
         <div className="bg-white rounded-3xl shadow-xl border border-slate-200/50 overflow-hidden mb-8">
-          <div className="bg-gradient-to-r from-blue-600 to-indigo-600 px-8 py-6">
+          <div className="bg-blue-800 px-8 py-6">
             <h2 className="text-2xl font-semibold text-white">
               Profile Information
             </h2>
@@ -222,12 +222,6 @@ const Profile = () => {
                     className="w-full h-full rounded-full object-cover cursor-pointer transition-all duration-300 group-hover:scale-105 group-hover:shadow-lg"
                   />
                 </div>
-                <div className="absolute inset-0 rounded-full bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center cursor-pointer">
-                  <span className="text-white text-sm font-medium">
-                    Change Photo
-                  </span>
-                </div>
-
                 {/* Upload Status Indicators */}
                 {filePerc > 0 && filePerc < 100 && (
                   <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 bg-blue-800 text-white text-xs px-3 py-1 rounded-full shadow-lg">
@@ -247,7 +241,7 @@ const Profile = () => {
               </div>
             </div>
 
-            {/* Professional Form Fields */}
+            {/* Form Fields */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               <div className="space-y-2">
                 <label
@@ -319,7 +313,7 @@ const Profile = () => {
               <Link to="/create-listing" className="flex-1">
                 <button
                   disabled={loading}
-                  className="cursor-pointer w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 disabled:from-slate-400 disabled:to-slate-500 text-white font-semibold py-3 px-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 transform hover:-translate-y-0.5"
+                  className="cursor-pointer w-full bg-green-600 hover:from-green-700 hover:to-emerald-700 disabled:from-slate-400 disabled:to-slate-500 text-white font-semibold py-3 px-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 transform hover:-translate-y-0.5"
                 >
                   {loading ? "Processing..." : "Create New Listing"}
                 </button>
@@ -329,29 +323,61 @@ const Profile = () => {
         </div>
 
         {/* Account Management Section */}
-        <div className="bg-white rounded-3xl shadow-xl border border-slate-200/50 p-8 mb-8">
+        <div className="bg-white rounded-3xl shadow-xl border border-slate-200/50 p-4 mb-8">
           <h3 className="text-xl font-semibold text-slate-900 mb-6">
             Account Management
           </h3>
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
             <div className="flex gap-4">
-              <button onClick={handleShowListing} className="cursor-pointer px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-medium rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 transform hover:-translate-y-0.5" > Show Listings </button>
+              <button onClick={handleShowListing} className="cursor-pointer px-6 py-3 bg-blue-800 hover:from-blue-700 hover:to-indigo-700 text-white font-medium rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 transform hover:-translate-y-0.5" > Show Listings </button>
 
             </div>
 
             <div className="flex gap-4">
               <button
                 onClick={handleSignOut}
-                className="cursor-pointer px-4 py-2 text-slate-600 hover:text-slate-800 font-medium hover:bg-slate-100 rounded-lg transition-colors duration-200"
+                className="cursor-pointer px-5 py-2.5 rounded-full font-semibold text-sm
+             bg-blue-800 text-white hover:-translate-y-0.5
+             shadow-md hover:shadow-lg hover:from-blue-700 hover:to-blue-900
+             active:scale-95 transition-all duration-200"
               >
                 Sign Out
               </button>
               <button
-                onClick={handleDeleteAccount}
+                onClick={() => setIsModalOpen(true)}
                 className="cursor-pointer px-4 py-2 text-red-600 hover:text-red-700 font-medium hover:bg-red-50 rounded-lg transition-colors duration-200"
               >
                 Delete Account
               </button>
+
+              {/*Delete Button Modal */}
+              {isModalOpen && (
+                <div className="fixed inset-0 bg-black/50 bg-opacity-100 flex items-center justify-center z-50">
+                  <div className="bg-white rounded-xl shadow-lg p-6 sm:w-120 text-center">
+                    <h2 className="text-lg font-semibold text-gray-800">
+                      Are you sure?
+                    </h2>
+                    <p className="text-sm text-gray-600 mt-2">
+                      This action cannot be undone.
+                    </p>
+
+                    <div className="flex justify-between mt-6 gap-3">
+                      <button
+                        onClick={() => setIsModalOpen(false)}
+                        className="cursor-pointer flex-1 px-4 py-2 rounded-lg border text-gray-700 hover:bg-gray-100 transition"
+                      >
+                        Cancel
+                      </button>
+                      <button
+                        onClick={handleDeleteAccount}
+                        className="cursor-pointer flex-1 px-4 py-2 rounded-lg bg-red-600 text-white hover:bg-red-700 transition"
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -396,13 +422,13 @@ const Profile = () => {
                         to={`/update-listing/${listing._id}`}
                         className="flex-1"
                       >
-                        <button className="w-full px-4 py-2 bg-blue-800 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors duration-200">
+                        <button className="cursor-pointer w-full px-4 py-2 bg-blue-800 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors duration-200">
                           Edit
                         </button>
                       </Link>
                       <button
                         onClick={() => handleListingDelete(listing._id)}
-                        className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-medium rounded-lg transition-colors duration-200"
+                        className="cursor-pointer px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-medium rounded-lg transition-colors duration-200"
                       >
                         Delete
                       </button>

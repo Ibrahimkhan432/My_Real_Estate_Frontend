@@ -9,19 +9,25 @@ import cors from "cors";
 
 dotenv.config();
 
-const app = express(); 
+const app = express();
 
 mongoose
   .connect(process.env.MONGODB_URI)
   .then(() => console.log("connected to database"))
   .catch((error) => console.log("failed to connect to database", error));
 
-app.use(
-  cors({
-    origin: "http://localhost:5173",
-    credentials: true,
-  })
-);
+const allowedOrigins = process.env.ALLOWED_ORIGINS.split(",");
+
+app.use(cors({
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true,
+}));
 
 app.use(express.json());
 app.use(cookieParser());
@@ -35,7 +41,7 @@ app.use("/api/user", userRouter);
 app.use("/api/listing", listingRouter);
 
 app.listen(5000, () => {
-  console.log("server is living on port 5000!");
+  console.log("server is running on 5000");
 });
 
 app.use((err, req, res, next) => {
