@@ -14,7 +14,7 @@ import {
 } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import Contact from "../components/Contact";
-import { BASE_URL } from "../constant/constant";
+import { BASE_URL } from "../constant/constant.js";
 
 const Listing = () => {
   SwiperCore.use([Navigation]);
