@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Mail } from "lucide-react";
 import { Link } from "react-router-dom";
+import { BASE_URL } from "../constant/constant.js";
 
 export default function Contact({ listing }) {
   const [landlord, setLandlord] = useState(null);
@@ -11,7 +12,7 @@ export default function Contact({ listing }) {
     const fetchLandlord = async () => {
       try {
         const res = await fetch(
-          `${process.env.REACT_APP_BACKEND_URL}/api/user/${listing.userRef}`
+          `${BASE_URL}/api/user/${listing.userRef}`
         );
         const data = await res.json();
         setLandlord(data);

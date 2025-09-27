@@ -5,7 +5,7 @@ import { Navigation } from "swiper/modules";
 import SwiperCore from "swiper";
 import "swiper/css/bundle";
 import ListingItem from "../components/ListingItem";
-import { BASE_URL } from "../constant/constant";
+import { BASE_URL } from "../constant/constant.js";
 
 export default function Home() {
   const [offerListings, setOfferListings] = useState([]);

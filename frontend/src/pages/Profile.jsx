@@ -19,6 +19,7 @@ import {
   signOutUserStart,
   signOutUserSuccess,
 } from "../redux/user/userSlice";
+import { BASE_URL } from "../constant/constant.js";
 
 const Profile = () => {
   const { currentUser, loading } = useSelector((state) => state.user);
@@ -76,7 +77,7 @@ const Profile = () => {
     e.preventDefault();
     try {
       dispatch(updateUserStart());
-      const res = await fetch(`http://localhost:5000/api/user/update/${currentUser._id}`, {
+      const res = await fetch(`${BASE_URL}/api/user/update/${currentUser._id}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -103,7 +104,7 @@ const Profile = () => {
     try {
       dispatch(deleteUserStart());
       const res = await fetch(
-        `http://localhost:5000/api/user/delete/${currentUser._id}`,
+        `${BASE_URL}/api/user/delete/${currentUser._id}`,
         {
           method: "DELETE",
           headers: { "Content-Type": "application/json" },
@@ -127,7 +128,7 @@ const Profile = () => {
   const handleSignOut = async () => {
     try {
       dispatch(signOutUserStart());
-      const res = await fetch("http://localhost:5000/api/auth/signout");
+      const res = await fetch(`${BASE_URL}/api/auth/signout`);
       const data = await res.json();
       if (res.data === false) {
         dispatch(signInFailure(data.message));
@@ -144,7 +145,7 @@ const Profile = () => {
   const handleShowListing = async () => {
     try {
       setShowListingError(false);
-      const res = await fetch(`http://localhost:5000/api/user/listings/${currentUser._id}`,
+      const res = await fetch(`${BASE_URL}/api/user/listings/${currentUser._id}`,
         {
           method: "GET",
           headers: {
@@ -168,7 +169,7 @@ const Profile = () => {
   // handle listing delete
   const handleListingDelete = async (listingId) => {
     try {
-      const res = await fetch(`http://localhost:5000/api/listing/delete/${listingId}`, {
+      const res = await fetch(`${BASE_URL}/api/listing/delete/${listingId}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",

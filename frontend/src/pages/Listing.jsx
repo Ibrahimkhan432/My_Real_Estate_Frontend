@@ -14,6 +14,7 @@ import {
 } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import Contact from "../components/Contact";
+import { BASE_URL } from "../constant/constant";
 
 const Listing = () => {
   SwiperCore.use([Navigation]);
@@ -29,7 +30,7 @@ const Listing = () => {
   useEffect(() => {
     const fetchListing = async () => {
       try {
-        const res = await fetch(`http://localhost:5000/api/listing/get/${params.listingId}`);
+        const res = await fetch(`${BASE_URL}/api/listing/get/${params.listingId}`);
         const data = await res.json();
         if (data.success === false) {
           console.log(data.message);

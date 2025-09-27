@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { signInStart, signInFailure, signInSuccess } from "../redux/user/userSlice";
 import Oath from "../components/Oath";
 import { toast } from "react-toastify";
+import { BASE_URL } from "../constant/constant.js";
 
 const SignIn = () => {
   const navigate = useNavigate();
@@ -19,7 +20,7 @@ const SignIn = () => {
     e.preventDefault();
     dispatch(signInStart());
     try {
-      const res = await fetch("http://localhost:5000/api/auth/signin", {
+      const res = await fetch(`${BASE_URL}/auth/signin`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),

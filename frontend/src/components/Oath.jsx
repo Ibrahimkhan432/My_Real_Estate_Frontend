@@ -4,6 +4,7 @@ import { signInWithPopup } from "firebase/auth";
 import { useDispatch } from "react-redux";
 import { signInSuccess } from "../redux/user/userSlice";
 import { useNavigate } from "react-router-dom";
+import { BASE_URL } from "../constant/constant.js";
 const Oath = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -15,7 +16,7 @@ const Oath = () => {
 
       console.log("Google Sign-In Result:", result);
 
-      const res = await fetch("https://localhost:5000/api/auth/google", {
+      const res = await fetch(`${BASE_URL}/api/auth/google`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

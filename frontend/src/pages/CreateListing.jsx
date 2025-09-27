@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { BASE_URL } from "../constant/constant.js";
 
 export default function CreateListing() {
   const navigate = useNavigate();
@@ -66,7 +67,7 @@ export default function CreateListing() {
         fd.append("images", file);
       });
 
-      const res = await fetch("http://localhost:5000/api/listing/create", {
+      const res = await fetch(`${BASE_URL}/api/listing/create`, {
         method: "POST",
         body: fd,
         credentials: "include",

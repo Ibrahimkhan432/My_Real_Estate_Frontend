@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Oath from "../components/Oath";
+import { BASE_URL } from "../constant/constant.js";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -17,7 +18,7 @@ const SignUp = () => {
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch("http://localhost:5000/api/auth/signup", {
+      const res = await fetch(`${BASE_URL}/api/auth/signup`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
@@ -105,7 +106,7 @@ const SignUp = () => {
         {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
 
         {/* Google Signup */}
-          {/* OAuth */}
+        {/* OAuth */}
         <Oath />
 
         {/* Sign In link */}
