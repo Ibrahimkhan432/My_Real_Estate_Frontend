@@ -18,6 +18,7 @@ export default function Home() {
       try {
         const res = await fetch(`${BASE_URL}/api/listing/get?offer=true&limit=4`);
         const data = await res.json();
+        console.log(data);
         setOfferListings(data);
         fetchRentListings();
       } catch (error) {
@@ -81,10 +82,14 @@ export default function Home() {
                 <div
                   className="h-[300px] sm:h-[400px] lg:h-[500px] relative"
                   style={{
-                    background: `url(https://media.newhomeinc.com/348/2022/11/30/The-Apex-Georgian-Elevation-1.jpeg?width=1000&height=666&fit=bounds&ois=0360179) center/cover no-repeat`,
+                    background: `url(${listing.imageUrls && listing.imageUrls.length > 0
+                      ? listing.imageUrls[0]
+                      : "https://media.newhomeinc.com/348/2022/11/30/The-Apex-Georgian-Elevation-1.jpeg?width=1000&height=666&fit=bounds&ois=0360179"
+                      }) center/cover no-repeat`,
                   }}
                 >
                 </div>
+
               </SwiperSlide>
             ))}
           </Swiper>
@@ -106,11 +111,12 @@ export default function Home() {
             Don’t miss out — explore our latest deals today and grab the opportunity
             to own your dream property at the best value.
           </p>
-          <Link to="/search?offer=true"
+          <Link
+            to={`/listing/${offerListings[0]?._id}`}
             className="px-6 py-3 bg-blue-800 text-white text-sm sm:text-base font-semibold rounded-lg shadow-md hover:bg-blue-700 transition text-center w-max 
              mx-auto lg:mx-0
             ">
-            Explore Offers
+            Explore Offer
           </Link>
         </div>
       </div>

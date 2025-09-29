@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Oath from "../components/Oath";
 import { BASE_URL } from "../constant/constant.js";
+import { toast } from "react-toastify";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -26,10 +27,16 @@ const SignUp = () => {
       const data = await res.json();
       setLoading(false);
       if (!res.ok) {
-        setError(data.message);
+        if (data.message.includes("duplicate") || data.message.includes("exist")) {
+          toast.error("User with this email already exists");
+        }
+        else {
+          toast.error(data.message || "Failed to create an account");
+        }
         return;
       }
-      navigate("/sign-in");
+      toast.success("Account created successfully")
+      navigate("/");
     } catch (err) {
       setLoading(false);
       setError(err.message);
