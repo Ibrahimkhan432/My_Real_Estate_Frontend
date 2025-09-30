@@ -75,19 +75,24 @@ const Profile = () => {
   };
 
   // handle update user
-  const handleSubmit = async (e) => {
+  const handleUpdate = async (e) => {
     e.preventDefault();
     try {
       dispatch(updateUserStart());
-      const res = await fetch(
-        `${BASE_URL}/api/user/update/${currentUser._id}`,
+
+      const body = { ...formData };
+      if (!body.password || body.password.trim() === "") {
+        delete body.password;
+      }
+
+      const res = await fetch(`${BASE_URL}/api/user/update/${currentUser._id}`,
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
           credentials: "include",
-          body: JSON.stringify(formData),
+          body: JSON.stringify(body),
         }
       );
       const data = await res.json();
@@ -211,7 +216,7 @@ const Profile = () => {
             </p>
           </div>
 
-          <form onSubmit={handleSubmit} className="p-8 space-y-8">
+          <form onSubmit={handleUpdate} className="p-8 space-y-8">
             <div className="flex flex-col items-center">
               <input
                 ref={fileRef}
