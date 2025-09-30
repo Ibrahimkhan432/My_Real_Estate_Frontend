@@ -63,10 +63,10 @@ const userSlice = createSlice({
 
 const selectUser = (state) => state.user;
 export { selectUser };
-export const { signInStart,
+export const {
+  signInStart,
   signInSuccess,
   signInFailure,
-  updateUser,
   updateUserStart,
   updateUserSuccess,
   updateUserFailure,
@@ -75,7 +75,7 @@ export const { signInStart,
   deleteUserFailure,
   signOutUserStart,
   signOutUserSuccess,
-  signOutUserFailure
+  signOutUserFailure,
 } = userSlice.actions;
 
 export default userSlice.reducer;

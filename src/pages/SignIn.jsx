@@ -1,7 +1,11 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { signInStart, signInFailure, signInSuccess } from "../redux/user/userSlice";
+import {
+  signInStart,
+  signInFailure,
+  signInSuccess,
+} from "../redux/user/userSlice";
 import Oath from "../components/Oath";
 import { toast } from "react-toastify";
 import { BASE_URL } from "../constant/constant.js";
@@ -29,7 +33,7 @@ const SignIn = () => {
       const data = await res.json();
       if (!res.ok) {
         dispatch(signInFailure(data.message));
-        toast.error(data.message || "Invalid credentials");
+        toast.error("Invalid credentials");
         return;
       }
       dispatch(signInSuccess(data));
@@ -48,7 +52,10 @@ const SignIn = () => {
       <form onSubmit={handleSubmit} className="space-y-5">
         {/* Email */}
         <div>
-          <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+          <label
+            htmlFor="email"
+            className="block text-sm font-medium text-gray-700 mb-1"
+          >
             Email
           </label>
           <input
@@ -64,7 +71,10 @@ const SignIn = () => {
 
         {/* Password */}
         <div>
-          <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
+          <label
+            htmlFor="password"
+            className="block text-sm font-medium text-gray-700 mb-1"
+          >
             Password
           </label>
           <input
@@ -83,12 +93,28 @@ const SignIn = () => {
           type="submit"
           disabled={loading}
           className={`cursor-pointer w-full flex items-center justify-center gap-2 py-3 px-4 rounded-lg text-white font-semibold transition duration-200
-            ${loading ? "bg-blue-400 cursor-not-allowed" : "bg-blue-800 hover:bg-blue-700"}
+            ${
+              loading
+                ? "bg-blue-400 cursor-not-allowed"
+                : "bg-blue-800 hover:bg-blue-700"
+            }
           `}
         >
           {loading && (
-            <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+            <svg
+              className="animate-spin h-5 w-5 text-white"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <circle
+                className="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                strokeWidth="4"
+              ></circle>
               <path
                 className="opacity-75"
                 fill="currentColor"
@@ -108,7 +134,10 @@ const SignIn = () => {
         {/* Signup link */}
         <p className="text-sm text-center text-gray-600 mt-3">
           Don't have an account?{" "}
-          <Link to="/sign-up" className="text-blue-500 hover:underline font-medium">
+          <Link
+            to="/sign-up"
+            className="text-blue-500 hover:underline font-medium"
+          >
             Sign Up
           </Link>
         </p>

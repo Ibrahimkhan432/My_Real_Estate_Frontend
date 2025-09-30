@@ -35,6 +35,7 @@ const Profile = () => {
     password: "",
     img: currentUser?.img || "",
   });
+  const [updateSuccess, setUpdateSuccess] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const navigate = useNavigate();
@@ -77,14 +78,17 @@ const Profile = () => {
     e.preventDefault();
     try {
       dispatch(updateUserStart());
-      const res = await fetch(`${BASE_URL}/api/user/update/${currentUser._id}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-        body: JSON.stringify(formData),
-      });
+      const res = await fetch(
+        `${BASE_URL}/api/user/update/${currentUser._id}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+          body: JSON.stringify(formData),
+        }
+      );
       const data = await res.json();
       console.log(data);
       if (data.success === false) {
@@ -93,12 +97,12 @@ const Profile = () => {
         return;
       }
       dispatch(updateUserSuccess(data));
+      setUpdateSuccess(true);
       console.log("Update successful:", data);
     } catch (error) {
       dispatch(updateUserFailure(error.message));
     }
   };
-
   // handle user delete
   const handleDeleteAccount = async () => {
     try {
@@ -145,7 +149,8 @@ const Profile = () => {
   const handleShowListing = async () => {
     try {
       setShowListingError(false);
-      const res = await fetch(`${BASE_URL}/api/user/listings/${currentUser._id}`,
+      const res = await fetch(
+        `${BASE_URL}/api/user/listings/${currentUser._id}`,
         {
           method: "GET",
           headers: {
@@ -252,9 +257,9 @@ const Profile = () => {
                   Username
                 </label>
                 <input
-                  id="username"
+                  id="userName"
                   type="text"
-                  defaultValue={currentUser?.userName}
+                  value={formData.userName}
                   onChange={handleChange}
                   className="w-full px-4 py-3 rounded-xl border-2 border-slate-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all duration-200 text-slate-900 placeholder-slate-400"
                   placeholder="Enter your username"
@@ -271,7 +276,7 @@ const Profile = () => {
                 <input
                   id="email"
                   type="email"
-                  defaultValue={currentUser?.email}
+                  value={formData.email}
                   onChange={handleChange}
                   className="w-full px-4 py-3 rounded-xl border-2 border-slate-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all duration-200 text-slate-900 placeholder-slate-400"
                   placeholder="Enter your email"
@@ -330,8 +335,13 @@ const Profile = () => {
           </h3>
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
             <div className="flex gap-4">
-              <button onClick={handleShowListing} className="cursor-pointer px-6 py-3 bg-blue-800 hover:from-blue-700 hover:to-indigo-700 text-white font-medium rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 transform hover:-translate-y-0.5" > Show Listings </button>
-
+              <button
+                onClick={handleShowListing}
+                className="cursor-pointer px-6 py-3 bg-blue-800 hover:from-blue-700 hover:to-indigo-700 text-white font-medium rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 transform hover:-translate-y-0.5"
+              >
+                {" "}
+                Show Listings{" "}
+              </button>
             </div>
 
             <div className="flex gap-4">

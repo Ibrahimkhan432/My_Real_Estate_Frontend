@@ -148,7 +148,7 @@ const Header = () => {
                 </Link>
               ) : (
                 <Link
-                  to="/sign-up"
+                  to="/sign-in"
                   className="block px-4 py-2 bg-blue-800 text-white rounded-full hover:bg-blue-700 mx-4"
                   onClick={() => setMenuOpen(false)}
                 >
@@ -160,7 +160,6 @@ const Header = () => {
         </div>
       )}
     </header>
-
   );
 };
 
