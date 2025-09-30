@@ -20,6 +20,7 @@ import {
   signOutUserSuccess,
 } from "../redux/user/userSlice";
 import { BASE_URL } from "../constant/constant.js";
+import { toast } from "react-toastify";
 
 const Profile = () => {
   const { currentUser, loading } = useSelector((state) => state.user);
@@ -90,9 +91,11 @@ const Profile = () => {
         }
       );
       const data = await res.json();
+      toast.success("Profile updated successfully");
       console.log(data);
       if (data.success === false) {
         dispatch(updateUserFailure(data.message));
+        toast.error(data.message || "Failed to update profile");
         console.error("Update failed:", data.message);
         return;
       }
@@ -139,9 +142,11 @@ const Profile = () => {
         return;
       }
       dispatch(signOutUserSuccess(data));
+      toast.success("Signed out successfully!");
       navigate("/sign-in");
     } catch (error) {
       dispatch(signInFailure(error.message));
+      toast.error("Something went wrong. Please try again.");
     }
   };
 
