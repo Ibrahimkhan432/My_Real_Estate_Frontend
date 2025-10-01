@@ -85,7 +85,8 @@ const Profile = () => {
         delete body.password;
       }
 
-      const res = await fetch(`${BASE_URL}/api/user/update/${currentUser._id}`,
+      const res = await fetch(
+        `${BASE_URL}/api/user/update/${currentUser._id}`,
         {
           method: "POST",
           headers: {
@@ -140,7 +141,13 @@ const Profile = () => {
   const handleSignOut = async () => {
     try {
       dispatch(signOutUserStart());
-      const res = await fetch(`${BASE_URL}/api/auth/signout`);
+      const res = await fetch(`${BASE_URL}/api/auth/signout`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      });
       const data = await res.json();
       if (res.data === false) {
         dispatch(signInFailure(data.message));
@@ -148,6 +155,7 @@ const Profile = () => {
       }
       dispatch(signOutUserSuccess(data));
       toast.success("Signed out successfully!");
+      localStorage.removeItem("access_token");
       navigate("/sign-in");
     } catch (error) {
       dispatch(signInFailure(error.message));
